@@ -595,6 +595,7 @@ class CursorWrapper(object):
         params = self.format_params(params)
         self.last_params = params
         try:
+            sql = re.sub(r'CREATE INDEX \[[a-z]*\]\.', 'CREATE INDEX ', sql)
             return self.cursor.execute(sql, params)
         except Database.Error as e:
             self.connection._on_error(e)
